@@ -95,6 +95,39 @@ All API routes are prefixed with `/api`.
 - **FollowedShow** — userId, tmdbShowId, showName, posterPath
 - **Review** — userId, tmdbShowId, showName, posterPath, rating (1–10), body
 
+## Testing
+
+### Running Tests
+```bash
+cd backend && npm test
+cd backend && npm run test:coverage
+```
+
+### Test Framework
+- Jest + ts-jest for TypeScript
+- Supertest for HTTP integration testing
+- jest-mock-extended for Prisma mocking (no real DB required)
+
+### Test Structure
+```
+backend/src/__tests__/
+  setup.ts                      # env vars for tests
+  prismaMock.ts                 # typed Prisma mock singleton
+  testApp.ts                    # Express app factory (no listen)
+  middleware/auth.test.ts
+  services/authService.test.ts
+  controllers/
+    authController.test.ts
+    showController.test.ts
+    followController.test.ts
+    reviewController.test.ts
+    userController.test.ts
+  lib/tmdb.test.ts
+```
+
+### TDD Workflow
+Write tests before implementing new features. Run `npm test` to verify red/green status.
+
 ## Key Conventions
 
 - Backend is TypeScript — use types throughout, no `any`
